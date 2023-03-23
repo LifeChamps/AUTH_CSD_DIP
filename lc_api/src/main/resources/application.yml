@@ -1,0 +1,17 @@
+server.port: 8080
+spring:
+  kafka:
+    security:
+      protocol: "PLAINTEXT"
+    bootstrap-servers: ${KAFKA_BROKER}
+    producer:
+      bootstrap-servers: ${KAFKA_BROKER}
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  jackson:
+    property-naming-strategy: SNAKE_CASE

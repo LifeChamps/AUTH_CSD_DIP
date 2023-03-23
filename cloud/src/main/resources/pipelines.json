@@ -1,0 +1,192 @@
+{
+  "topics": [
+    {
+      "name": "Monitoring",
+      "from": "lifechamps/test/monitoring",
+      "to": "test.mqtt.dw.ki.monitoring_raw",
+      "type": "raw"
+    },
+    {
+      "name": "Position",
+      "from": "lifechamps/test/ms/position/raw",
+      "to": "test.mqtt.dw.mysphera.locs.position_raw",
+      "type": "transform",
+      "class": "org.auth.csd.datalab.Model.Locs.Position"
+    },
+    {
+      "name": "Aggregate position",
+      "from": "lifechamps/test/ms/aggregate/position/raw",
+      "to": "test.mqtt.dw.mysphera.locs.aggregation_position_raw",
+      "type": "transform",
+      "class": "org.auth.csd.datalab.Model.Locs.AggregatePosition"
+    },
+    {
+      "name": "Ambient",
+      "from": "lifechamps/test/ms/ambient/raw",
+      "to": "test.mqtt.dw.mysphera.locs.ambient_raw",
+      "type": "transform",
+      "class": "org.auth.csd.datalab.Model.Locs.Ambient"
+    },
+    {
+      "name": "Appliances",
+      "from": "lifechamps/test/ms/appliances/raw",
+      "to": "test.mqtt.dw.mysphera.locs.appliances_raw",
+      "type": "transform",
+      "class": "org.auth.csd.datalab.Model.Locs.Appliances"
+    },
+    {
+      "name": "Aggregate Position Night",
+      "from": "lifechamps/test/ms/aggregate/position_night/raw",
+      "to": "test.mqtt.dw.mysphera.locs.aggregation_position_night_raw",
+      "type": "transform",
+      "class": "org.auth.csd.datalab.Model.Locs.AggregatePosition"
+    },
+    {
+      "name": "Alert",
+      "from": "lifechamps/test/ms/alert/raw",
+      "to": "test.mqtt.dw.mysphera.locs.alert_raw",
+      "type": "transform",
+      "class": "org.auth.csd.datalab.Model.Locs.Alert"
+    },
+    {
+      "name": "Speed",
+      "from": "lifechamps/test/ms/speed/raw",
+      "to": "test.mqtt.dw.mysphera.locs.speed_raw",
+      "type": "raw"
+    },
+    {
+      "name": "Locs Calc",
+      "from": "lifechamps/test/ms/locs/calc",
+      "to": "test.mqtt.dw.mysphera.locs.calc",
+      "type": "Calculations",
+      "class": "org.auth.csd.datalab.Model.Metrics.MetricsCalc",
+      "analytics": [
+        {
+          "type": "TrendCalculation",
+          "inputkey": ["outside_time_24h","power_24h"],
+          "outputkey": ["outside_time_trend_7d","power_7d_trend"],
+          "window_h": 168,
+          "slide_h": 24
+        }
+      ]
+    },
+    {
+      "name": "Movesense Heart Rate",
+      "from": "lifechamps/test/ki/hr/raw",
+      "to": "test.mqtt.dw.ki.movesense_sensor.hr_raw",
+      "type": "transform",
+      "class": "org.auth.csd.datalab.Model.Movesense.HeartRate"
+    },
+    {
+      "name": "Movesense Accelerator",
+      "from": "lifechamps/test/ki/acc/raw",
+      "to": "test.mqtt.dw.ki.movesense_sensor.acc_raw",
+      "type": "transform",
+      "class": "org.auth.csd.datalab.Model.Movesense.Accelerator"
+    },
+    {
+      "name": "Withings raw",
+      "from": "lifechamps/test/sm/withings/raw",
+      "to": "test.mqtt.dw.salumedia.weight_scale.withings_raw",
+      "type": "transform",
+      "class": "org.auth.csd.datalab.Model.FitbitSensors.Withings"
+    },
+    {
+      "name": "Withings Calc",
+      "from": "lifechamps/test/sm/withings/calc",
+      "to": "test.mqtt.dw.salumedia.weight_scale.withings_calc",
+      "type": "transform",
+      "class": "org.auth.csd.datalab.Model.Metrics.MetricsCalc",
+      "analytics": [
+        {
+          "type": "TrendCalculation",
+          "inputkey": [
+            "bmi",
+            "body_fat_pct",
+            "body_muscle",
+            "body_muscle_pct",
+            "body_water_pct",
+            "weight"
+          ],
+          "outputkey": [
+            "bmi_trend_7d",
+            "body_fat_pct_trend_7d",
+            "body_muscle_trend_7d",
+            "body_muscle_pct_trend_7d",
+            "body_water_pct_trend_7d",
+            "weight_trend_7d"
+          ],
+          "window_h": 168,
+          "slide_h": 24
+        }
+      ]
+    },
+    {
+      "name": "Fitbit raw",
+      "from": "lifechamps/test/sm/fitbit/raw",
+      "to": "test.mqtt.dw.salumedia.fitbit.raw",
+      "type": "transform",
+      "class": "org.auth.csd.datalab.Model.FitbitSensors.Fitbit"
+    },
+    {
+      "name": "Fitbit Calc",
+      "from": "lifechamps/test/sm/fitbit/calc",
+      "to": "test.mqtt.dw.salumedia.fitbit.calc",
+      "type": "Calculations",
+      "class": "org.auth.csd.datalab.Model.Metrics.FitbitCalc",
+      "analytics": [
+        {
+          "type": "TrendCalculation",
+          "inputkey": [
+            "sleep_deep_24h",
+            "sleep_light_24h",
+            "sleep_rem_24h",
+            "sleep_24h",
+            "hr_sleep_24h",
+            "hr_24h",
+            "hr_rest_daily_24h",
+            "stairs_24h",
+            "stairs_Q1",
+            "stairs_Q2",
+            "stairs_Q3",
+            "stairs_Q4",
+            "steps_24h",
+            "steps_Q1",
+            "steps_Q2",
+            "steps_Q3",
+            "steps_Q4",
+            "hr_workout_light_zone_duration_24h",
+            "hr_workout_moderate_zone_duration_24h",
+            "hr_workout_intense_zone_duration_24h",
+            "hr_workout_maximal_zone_duration_24h"
+          ],
+          "outputkey": [
+            "sleep_deep_trend_7d",
+            "sleep_light_trend_7d",
+            "sleep_rem_trend_7d",
+            "sleep_trend",
+            "hr_sleep_24h_trend_7d",
+            "hr_trend_7_days",
+            "hr_rest_trend_7d",
+            "stairs_24h_trend_7d",
+            "stairs_Q1_trend_7d",
+            "stairs_Q2_trend_7d",
+            "stairs_Q3_trend_7d",
+            "stairs_Q4_trend_7d",
+            "steps_24h_trend_7d",
+            "steps_Q1_trend_7d",
+            "steps_Q2_trend_7d",
+            "steps_Q3_trend_7d",
+            "steps_Q4_trend_7d",
+            "hr_workout_light_zone_duration_24h_trend_7d",
+            "hr_workout_moderate_zone_duration_24h_trend_7d",
+            "hr_workout_intense_zone_duration_24h_trend_7d",
+            "hr_workout_maximal_zone_duration_24h_trend_7d"
+          ],
+          "window_h": 168,
+          "slide_h": 24
+        }
+      ]
+    }
+  ]
+}

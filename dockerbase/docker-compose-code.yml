@@ -1,0 +1,69 @@
+version: "3.2"
+
+networks:
+  lifechamps_net:
+    external:
+      name: lifechamps_net
+
+volumes:
+  influx_data:
+
+services:
+  api:
+    build: ../lc_api
+    container_name: lc_api
+    networks:
+      - lifechamps_net
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_BROKER: "kafka:9092"
+  jobmanager:
+    build:
+      context: ../cloud
+    command: jobmanager
+    container_name: jobmanager
+    networks:
+      - lifechamps_net
+    ports:
+      - "8081:8081"
+    env_file:
+      - ../cloud/.env
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - KAFKA_BROKERS=kafka:9092
+      - |
+        FLINK_PROPERTIES= taskmanager.numberOfTaskSlots: 8
+        taskmanager.memory.process.size: 8g
+        jobmanager.memory.process.size: 4g
+        metrics.reporter.influxdb.class: org.apache.flink.metrics.influxdb.InfluxdbReporter
+        metrics.reporter.influxdb.host: influxdb
+        metrics.reporter.influxdb.port: 8086
+        metrics.reporter.influxdb.db: metrics
+        metrics.reporter.influxdb.username: admin
+        metrics.reporter.influxdb.password: 1234
+        web.submit.enable: false
+        metrics.system.resource: true
+  taskmanager:
+    image: flink:1.13.1-scala_2.12
+    command: taskmanager
+    depends_on:
+      - jobmanager
+    env_file:
+      - ../cloud/.env
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - KAFKA_BROKERS=kafka:9092
+      - |
+        FLINK_PROPERTIES= taskmanager.numberOfTaskSlots: 8
+        taskmanager.memory.process.size: 8g
+        metrics.reporter.influxdb.class: org.apache.flink.metrics.influxdb.InfluxdbReporter
+        metrics.reporter.influxdb.host: influxdb
+        metrics.reporter.influxdb.port: 8086
+        metrics.reporter.influxdb.db: metrics
+        metrics.reporter.influxdb.username: admin
+        metrics.reporter.influxdb.password: 1234
+        web.submit.enable: false
+        metrics.system.resource: true
+    networks:
+      - lifechamps_net
