@@ -8,7 +8,7 @@ systems designed specifically for big data applications, making it scalable and 
 ## Architecture
 A general overview of the whole architecture is presented below:
 
-<p style="text-align: center;">
+<p align="center">
 <img src="https://github.com/LifeChamps/AUTH_CSD_DIP/blob/main/SystemOverview.png" width="491" height="782" alt="">
 </p>
 
